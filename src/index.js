@@ -1,8 +1,9 @@
 import p5 from 'p5';
-import sketch from './js/sketch';
+import Walker from './js/Walker';
 
 // Initialize sketch
-new p5(sketch);
+new p5(Walker);
+// Walker(p5);
 
 if (module.hot) {
   console.log('hot loader!');

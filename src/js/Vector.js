@@ -1,21 +1,10 @@
 
 import p5 from 'p5';
+import PVector from './PVector';
 
-class PVector {
-  constructor(x_, y_) {
-    this.x = x_;
-    this.y = y_;
-  }
-	
-  add(V) {
-    this.x = this.x + V.x;
-    this.y = this.y + V.y;
-  }
-}
-
-const sketch = (p5) => {
-  const location = new PVector(100, 100);
-  const velocity = new PVector(1, 3.3);
+const Vector = (p5) => {
+  const location = PVector(100, 100);
+  const velocity = PVector(1, 3.3);
   
   window.p5 = p5;
     
@@ -45,4 +34,4 @@ const sketch = (p5) => {
 }
 
 
-export default sketch;
+export default Vector;
