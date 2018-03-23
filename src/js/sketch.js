@@ -24,10 +24,7 @@ const sketch = (p5) => {
     p5.background(255);
   }
 
-  console.log(p5.width, p5.height);
-
   p5.draw = () => {
-    console.log(p5.width, p5.height);
     p5.background(255);
 
     location.add(velocity);
@@ -40,10 +37,10 @@ const sketch = (p5) => {
       velocity.y = velocity.y * -1;
     }
 
-    p5.stroke(0);
+    p5.stroke(10);
     p5.fill(175);
 
-    p5.ellipse(location.x,location.y,16,16);
+    p5.ellipse(location.x,location.y,25,25);
   }
 }
 
