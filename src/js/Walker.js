@@ -41,8 +41,8 @@ const Sketch = (p5) => {
 
   window.p5 = p5;
   
-  p5.setUp = () => {
-  	p5.createCanvas(windowWidth, windowHeight);
+  p5.setup = () => {
+  	p5.createCanvas(webpack --mode development);
   	p5.background(125);
   	p5.point(w.location.x, w.location.y);
   }
@@ -51,7 +51,6 @@ const Sketch = (p5) => {
     w.step();
     p5.stroke(0);
     p5.strokeWeight(10);
-    console.log(w.location.x, w.location.y);
     p5.point(w.location.x, w.location.y);
   }
 }

@@ -101,19 +101,31 @@ eval("var g;\r\n\r\n// This works in non-strict mode\r\ng = (function() {\r\n\tr
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var p5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! p5 */ \"./node_modules/p5/lib/p5.js\");\n/* harmony import */ var p5__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(p5__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _js_sketch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/sketch */ \"./src/js/sketch.js\");\n\n\n\n// Initialize sketch\nnew p5__WEBPACK_IMPORTED_MODULE_0___default.a(_js_sketch__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\n\nif (false) {}\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var p5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! p5 */ \"./node_modules/p5/lib/p5.js\");\n/* harmony import */ var p5__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(p5__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _js_Baton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/Baton */ \"./src/js/Baton.js\");\n\n\n// import Walker from './js/Walker';\n\n// Initialize sketch\nnew p5__WEBPACK_IMPORTED_MODULE_0___default.a(_js_Baton__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\n\nif (false) {}\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
-/***/ "./src/js/sketch.js":
-/*!**************************!*\
-  !*** ./src/js/sketch.js ***!
-  \**************************/
+/***/ "./src/js/Baton.js":
+/*!*************************!*\
+  !*** ./src/js/Baton.js ***!
+  \*************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var p5__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! p5 */ \"./node_modules/p5/lib/p5.js\");\n/* harmony import */ var p5__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(p5__WEBPACK_IMPORTED_MODULE_0__);\n\n\n\nclass PVector {\n  constructor(x_, y_) {\n    this.x = x_;\n    this.y = y_;\n  }\n\t\n  add(V) {\n    this.x = this.x + V.x;\n    this.y = this.y + V.y;\n  }\n}\n\nconst sketch = (p5) => {\n  const location = new PVector(100, 100);\n  const velocity = new PVector(1, 3.3);\n  \n  window.p5 = p5;\n    \n  p5.setup = () => {\n    p5.createCanvas(640,360);\n    p5.background(255);\n  }\n\n  p5.draw = () => {\n    p5.background(255);\n\n    location.add(velocity);\n\n    if ((location.x > p5.width) || (location.x < 0)) {\n      velocity.x = velocity.x * -1;\n    }\n\n    if ((location.y > p5.height) || (location.y < 0)) {\n      velocity.y = velocity.y * -1;\n    }\n\n    p5.stroke(10);\n    p5.fill(175);\n\n    p5.ellipse(location.x,location.y,16,16);\n  }\n}\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (sketch);\n\n//# sourceURL=webpack:///./src/js/sketch.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _PVector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PVector */ \"./src/js/PVector.js\");\n// import p5 from 'p5';\n\n\nclass Mover {\n  constructor(mass, x, y) {\n    this.aAcceleration = 0.001;\n    this.location = new _PVector__WEBPACK_IMPORTED_MODULE_0__[\"default\"](x, y);\n  \tthis.velocity = new _PVector__WEBPACK_IMPORTED_MODULE_0__[\"default\"](p5.random(-2, 2), p5.random(-2, 2));\n    this.acceleration = new _PVector__WEBPACK_IMPORTED_MODULE_0__[\"default\"](0, 0);\n\n    this.mass = mass;\n    this.angle = 0;\n    this.aVelocity = 0;\n    \n  }\n\n  applyForce(PVector) {\n    this.acceleration = PVector;\n  }\n\n  update() {\n    this.velocity.add(this.acceleration);\n    this.location.add(this.velocity);\n\n    aVelocity += aAcceleration;\n    angle += aVelocity;\n\n    this.acceleration.mult(0);\n  }\n\n  display() {\n    stroke(0);\n    fill(175, 200);\n    rectMode(p5.CENTER);\n\n    pushMatrix();\n\n    p5.translate(this.location.x, this.location.y);\n    p5.rotate(this.angle);\n\n    rect(0, 0, this.mass * 16, this.mass * 16);\n    popMatrix();\n  }\n\n  checkEdges() {\n    if (this.location.x > p5.width) {\n      this.location.x = 0;\n    } else if (this.location.x < 0) {\n      this.location.x = width;\n    }\n\n    if (this.location.y > p5.height) {\n      this.location.y = 0;\n    } else if (this.location.y < 0) {\n      this.location.y = height;\n    }\n  }\n}\n\nconst Sketch = (p5) => {\n  window.p5 = p5;\n  const movers = [1,2,3,4,5,6,7];\n  \n  p5.setup = () => {\n  \tconst sketch = p5.createCanvas(640, 360);\n    sketch.parent('sketch');\n    p5.frameRate(10);\n  \tp5.background(255);\n\n    for (let i; i<movers.length; i++) {\n      movers[i] = new Mover(p5.random(0.1, 5), 0, 0);\n    }\n  }\n\n  p5.draw = () => {\n    p5.background(255);   \n\n    for (let i; i<movers.length; i++) {\n      movers[i].update();\n      movers[i].display();\n      movers[i].checkEdges();\n    }\n\n    // p5.fill(175);\n    // p5.stroke(0);\n    // p5.rectMode(p5.CENTER);\n    // p5.translate(p5.width/2,p5.height/2);\n    // p5.rotate(angle);\n    // p5.line(-50,0,50,0);\n    // p5.ellipse(50,0,8,8);\n    // p5.ellipse(-50,0,8,8);\n\n    // aVelocity += aAcceleration;\n    // angle = aVelocity;\n  }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Sketch);\n\n\n//# sourceURL=webpack:///./src/js/Baton.js?");
+
+/***/ }),
+
+/***/ "./src/js/PVector.js":
+/*!***************************!*\
+  !*** ./src/js/PVector.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nclass PVector {\n  constructor(x_, y_) {\n    this.x = x_;\n    this.y = y_;\n  }\n\t\n  add(V) {\n    this.x = this.x + V.x;\n    this.y = this.y + V.y;\n  }\n\n  sub(V) {\n  \tthis.x = this.x - V.x;\n  \tthis.y = this.y - V.y;\n  }\n\n  mult(n) {\n  \tthis.x = this.x * n;\n  \tthis.y = this.y * n;\n  }\n\n  div(n) {\n  \tthis.x = this.x / n;\n  \tthis.y = this.y / n;\n  }\n\n  mag() {\n  \treturn Math.sqrt(this.x * this.x + this.y * this.y);\n  }\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (PVector);\n\n//# sourceURL=webpack:///./src/js/PVector.js?");
 
 /***/ }),
 
