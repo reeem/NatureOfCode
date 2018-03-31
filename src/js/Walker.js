@@ -42,7 +42,7 @@ const Sketch = (p5) => {
   window.p5 = p5;
   
   p5.setup = () => {
-  	p5.createCanvas(webpack --mode development);
+  	p5.createCanvas(640, 360);
   	p5.background(125);
   	p5.point(w.location.x, w.location.y);
   }
