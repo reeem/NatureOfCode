@@ -27,6 +27,22 @@ class PVector {
   mag() {
   	return Math.sqrt(this.x * this.x + this.y * this.y);
   }
+
+  normalize() {
+    const m = this.mag();
+
+    if (m !== 0) {
+      this.div(m);
+    }
+  }
+
+  heading() {
+    return Math.atan2(this.y, this.x);
+  }
+
+  get() {
+    return Object.assign({}, this);
+  }
 }
 
 export default PVector;

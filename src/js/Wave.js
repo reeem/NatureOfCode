@@ -1,27 +1,38 @@
-const Sketch = (p5) => {
-  let startAngle = 0;
-  const angleVel = 0.1; 
+class Wave {
+  constructor(PVector, width, amplitude, period) {
+  	this.origin = PVector.get(); // 파장의 시작 위치
+  	this.width = width; // 파장의 넓이
+  	this.amplitude = amplitude; // 파장의 높이
+  	this.period = period; // pixels
 
-  p5.setup = () => {
-    p5.createCanvas(600, 400);
+  	this.xspacing = 8;
+  	this.dx = (p5.TWO_PI / this.period) * this.xspacing; // 
+
+  	this.len = parseInt(this.width/(this.xspacing), 10);
+
+  	this.yvalues = new Array(this.len);
+  	this.theta = 0;
   }
 
-  p5.draw = () => {
-    p5.background(255);
+  calculate() {
+  	this.theta += 0.02;
 
-    startAngle += angleVel;
+  	let x = this.theta;
 
-    let angle = startAngle;
-    let y;
+  	for (let i = 0; i < this.len; i += 1) {
+  		this.yvalues[i] = this.amplitude * Math.sin(x);
+  		x += this.dx;
+  	}
+  }
 
-    for (let x = 10; x <= (p5.width - 10); x += 1) {
-      y = p5.map(p5.sin(angle), -1, 1, 10, p5.height - 10);
+  display() {
+    for (let x = 0; x < this.len; x += 1) {
       p5.stroke(0);
       p5.fill(0, 50);
-      p5.rect(x, y, 24, 24);
-      angle += angleVel;
+      p5.ellipseMode(p5.CENTER);
+      p5.ellipse(this.origin.x + (x * this.xspacing), this.origin.y + this.yvalues[x], 48, 48);
     }
   }
 }
 
-export default Sketch;
+export default Wave;

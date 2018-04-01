@@ -1,10 +1,10 @@
 import p5 from 'p5';
 // import Baton from './js/Baton';
 // import Walker from './js/Walker';
-import Wave from './js/Wave';
+import OOPWave from './js/OOPWave';
 
 // Initialize sketch
-new p5(Wave);
+new p5(OOPWave);
 
 if (module.hot) {
   module.hot.accept();
